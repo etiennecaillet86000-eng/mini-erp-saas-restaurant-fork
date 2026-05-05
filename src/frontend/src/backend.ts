@@ -89,10 +89,1100 @@ export class ExternalBlob {
         return this;
     }
 }
-export interface backendInterface {
+export interface VenteJournaliere {
+    id: string;
+    date: string;
+    montant: number;
 }
+export interface RecetteIngredient {
+    quantiteNette: number;
+    ingredientId: string;
+}
+export interface MouvementStockInput {
+    motif: string;
+    date: string;
+    type: string;
+    quantite: number;
+    ingredientId: string;
+}
+export interface Recette {
+    id: string;
+    nom: string;
+    tva: number;
+    categorie: string;
+    prixVenteHT: number;
+    volumeHebdo: number;
+    categorieId: string;
+    ingredients: Array<RecetteIngredient>;
+}
+export interface RecetteInput {
+    nom: string;
+    tva: number;
+    categorie: string;
+    prixVenteHT: number;
+    volumeHebdo: number;
+    categorieId: string;
+    ingredients: Array<RecetteIngredient>;
+}
+export interface FraisFixeInput {
+    categorie: string;
+    libelle: string;
+    montant: number;
+    frequence: string;
+}
+export interface SalaireInput {
+    nom: string;
+    chargesPatronales: number;
+    typeContrat: string;
+    salaireNet: number;
+    coutTotalEmployeur: number;
+    heuresHebdo: number;
+    prenom: string;
+    poste: string;
+}
+export interface FraisFixe {
+    id: string;
+    categorie: string;
+    libelle: string;
+    montant: number;
+    frequence: string;
+}
+export interface VenteJournaliereInput {
+    date: string;
+    montant: number;
+}
+export interface MouvementStock {
+    id: string;
+    motif: string;
+    date: string;
+    type: string;
+    quantite: number;
+    ingredientId: string;
+}
+export interface Immobilisation {
+    id: string;
+    nom: string;
+    type: string;
+    valeurAchatHT: number;
+    dureeAmortissementAns: bigint;
+    dateAchat: string;
+}
+export interface IngredientInput {
+    nom: string;
+    seuilSecurite: number;
+    famille: string;
+    prixAchatHT: number;
+    unite: string;
+    perteMatierePct: number;
+}
+export interface HistoriqueCloture {
+    id: string;
+    chargesVariables: number;
+    date: string;
+    valide: boolean;
+    caTotal: number;
+    ventes: Array<CloturVente>;
+}
+export interface HypothesesBP {
+    croissanceCA_Reel: number;
+    joursOuvertureParSemaine: number;
+    inflationCharges_Reel: number;
+    inflationCharges_BP: number;
+    objectifCAannuel: number;
+    pacteSocialActif: boolean;
+    semainesOuverture: number;
+    tauxIS_haut: number;
+    croissanceCA_BP: number;
+    margeCibleGlobale: number;
+    remunerationAssociesAnnuelle: number;
+    couvertsParJour: number;
+    tauxCroissanceCA: number;
+    joursOuvertureAn: number;
+    tauxCroissanceAnnuel: number;
+    seuilIS: number;
+    ticketMoyenCible: number;
+    tauxInflationCharges: number;
+    statutJuridique: string;
+    tauxChargesPatronales: number;
+    tauxInflationAnnuel: number;
+    tauxChargesSalariales: number;
+    tauxIS_bas: number;
+}
+export interface HistoriqueClotureInput {
+    chargesVariables: number;
+    date: string;
+    valide: boolean;
+    caTotal: number;
+    ventes: Array<CloturVente>;
+}
+export interface Ingredient {
+    id: string;
+    nom: string;
+    seuilSecurite: number;
+    famille: string;
+    prixAchatHT: number;
+    unite: string;
+    perteMatierePct: number;
+}
+export interface Emprunt {
+    id: string;
+    nom: string;
+    capitalInitial: number;
+    tauxAnnuel: number;
+    dateDebut: string;
+    dureeMois: bigint;
+}
+export interface CloturVente {
+    recetteId: string;
+    quantite: number;
+}
+export interface CategorieCarte {
+    id: string;
+    nom: string;
+    ticketMoyen: number;
+    foodCostCible: number;
+    mixCiblePct: number;
+}
+export interface AssocieInput {
+    nom: string;
+    montantRembourse: number;
+    apportInitial: number;
+    remunerationMensuelle: number;
+}
+export interface Associe {
+    id: string;
+    nom: string;
+    montantRembourse: number;
+    apportInitial: number;
+    remunerationMensuelle: number;
+}
+export interface ImmobilisationInput {
+    nom: string;
+    type: string;
+    valeurAchatHT: number;
+    dureeAmortissementAns: bigint;
+    dateAchat: string;
+}
+export interface Salaire {
+    id: string;
+    nom: string;
+    chargesPatronales: number;
+    typeContrat: string;
+    salaireNet: number;
+    coutTotalEmployeur: number;
+    heuresHebdo: number;
+    prenom: string;
+    poste: string;
+}
+export interface EmpruntInput {
+    nom: string;
+    capitalInitial: number;
+    tauxAnnuel: number;
+    dateDebut: string;
+    dureeMois: bigint;
+}
+export interface CategorieCarteInput {
+    nom: string;
+    ticketMoyen: number;
+    foodCostCible: number;
+    mixCiblePct: number;
+}
+export interface backendInterface {
+    createAssocie(input: AssocieInput): Promise<string>;
+    createCategorieCarte(input: CategorieCarteInput): Promise<string>;
+    createEmprunt(input: EmpruntInput): Promise<string>;
+    createFraisFixe(input: FraisFixeInput): Promise<string>;
+    createHistoriqueClotureEntry(input: HistoriqueClotureInput): Promise<string>;
+    createImmobilisation(input: ImmobilisationInput): Promise<string>;
+    createIngredient(input: IngredientInput): Promise<string>;
+    createMouvementStock(input: MouvementStockInput): Promise<string>;
+    createRecette(input: RecetteInput): Promise<string>;
+    createSalaire(input: SalaireInput): Promise<string>;
+    createVenteJournaliere(input: VenteJournaliereInput): Promise<string>;
+    deleteAssocie(id: string): Promise<boolean>;
+    deleteCategorieCarte(id: string): Promise<boolean>;
+    deleteEmprunt(id: string): Promise<boolean>;
+    deleteFraisFixe(id: string): Promise<boolean>;
+    deleteHistoriqueClotureEntry(id: string): Promise<boolean>;
+    deleteImmobilisation(id: string): Promise<boolean>;
+    deleteIngredient(id: string): Promise<boolean>;
+    deleteMouvementStock(id: string): Promise<boolean>;
+    deleteRecette(id: string): Promise<boolean>;
+    deleteSalaire(id: string): Promise<boolean>;
+    deleteVenteJournaliere(id: string): Promise<boolean>;
+    getAssocieById(id: string): Promise<Associe | null>;
+    getCategorieCarteById(id: string): Promise<CategorieCarte | null>;
+    getEmpruntById(id: string): Promise<Emprunt | null>;
+    getFraisFixeById(id: string): Promise<FraisFixe | null>;
+    getHistoriqueClotureById(id: string): Promise<HistoriqueCloture | null>;
+    getHypothesesBP(): Promise<HypothesesBP | null>;
+    getImmobilisationById(id: string): Promise<Immobilisation | null>;
+    getIngredientById(id: string): Promise<Ingredient | null>;
+    getMouvementStockById(id: string): Promise<MouvementStock | null>;
+    getRecetteById(id: string): Promise<Recette | null>;
+    getSalaireById(id: string): Promise<Salaire | null>;
+    getVenteJournaliereById(id: string): Promise<VenteJournaliere | null>;
+    listAssocies(): Promise<Array<Associe>>;
+    listCategoriesCarte(): Promise<Array<CategorieCarte>>;
+    listEmprunts(): Promise<Array<Emprunt>>;
+    listFraisFixes(): Promise<Array<FraisFixe>>;
+    listHistoriqueClotures(): Promise<Array<HistoriqueCloture>>;
+    listImmobilisations(): Promise<Array<Immobilisation>>;
+    listIngredients(): Promise<Array<Ingredient>>;
+    listMouvementsStock(): Promise<Array<MouvementStock>>;
+    listRecettes(): Promise<Array<Recette>>;
+    listSalaires(): Promise<Array<Salaire>>;
+    listVentesJournalieres(): Promise<Array<VenteJournaliere>>;
+    saveHypothesesBP(hypotheses: HypothesesBP): Promise<boolean>;
+    updateAssocie(id: string, input: AssocieInput): Promise<boolean>;
+    updateCategorieCarte(id: string, input: CategorieCarteInput): Promise<boolean>;
+    updateEmprunt(id: string, input: EmpruntInput): Promise<boolean>;
+    updateFraisFixe(id: string, input: FraisFixeInput): Promise<boolean>;
+    updateHistoriqueClotureEntry(id: string, input: HistoriqueClotureInput): Promise<boolean>;
+    updateImmobilisation(id: string, input: ImmobilisationInput): Promise<boolean>;
+    updateIngredient(id: string, input: IngredientInput): Promise<boolean>;
+    updateMouvementStock(id: string, input: MouvementStockInput): Promise<boolean>;
+    updateRecette(id: string, input: RecetteInput): Promise<boolean>;
+    updateSalaire(id: string, input: SalaireInput): Promise<boolean>;
+    updateVenteJournaliere(id: string, input: VenteJournaliereInput): Promise<boolean>;
+}
+import type { Associe as _Associe, CategorieCarte as _CategorieCarte, Emprunt as _Emprunt, FraisFixe as _FraisFixe, HistoriqueCloture as _HistoriqueCloture, HypothesesBP as _HypothesesBP, Immobilisation as _Immobilisation, Ingredient as _Ingredient, MouvementStock as _MouvementStock, Recette as _Recette, Salaire as _Salaire, VenteJournaliere as _VenteJournaliere } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+    async createAssocie(arg0: AssocieInput): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createAssocie(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createAssocie(arg0);
+            return result;
+        }
+    }
+    async createCategorieCarte(arg0: CategorieCarteInput): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createCategorieCarte(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createCategorieCarte(arg0);
+            return result;
+        }
+    }
+    async createEmprunt(arg0: EmpruntInput): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createEmprunt(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createEmprunt(arg0);
+            return result;
+        }
+    }
+    async createFraisFixe(arg0: FraisFixeInput): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createFraisFixe(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createFraisFixe(arg0);
+            return result;
+        }
+    }
+    async createHistoriqueClotureEntry(arg0: HistoriqueClotureInput): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createHistoriqueClotureEntry(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createHistoriqueClotureEntry(arg0);
+            return result;
+        }
+    }
+    async createImmobilisation(arg0: ImmobilisationInput): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createImmobilisation(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createImmobilisation(arg0);
+            return result;
+        }
+    }
+    async createIngredient(arg0: IngredientInput): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createIngredient(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createIngredient(arg0);
+            return result;
+        }
+    }
+    async createMouvementStock(arg0: MouvementStockInput): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createMouvementStock(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createMouvementStock(arg0);
+            return result;
+        }
+    }
+    async createRecette(arg0: RecetteInput): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createRecette(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createRecette(arg0);
+            return result;
+        }
+    }
+    async createSalaire(arg0: SalaireInput): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createSalaire(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createSalaire(arg0);
+            return result;
+        }
+    }
+    async createVenteJournaliere(arg0: VenteJournaliereInput): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createVenteJournaliere(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createVenteJournaliere(arg0);
+            return result;
+        }
+    }
+    async deleteAssocie(arg0: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteAssocie(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteAssocie(arg0);
+            return result;
+        }
+    }
+    async deleteCategorieCarte(arg0: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteCategorieCarte(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteCategorieCarte(arg0);
+            return result;
+        }
+    }
+    async deleteEmprunt(arg0: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteEmprunt(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteEmprunt(arg0);
+            return result;
+        }
+    }
+    async deleteFraisFixe(arg0: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteFraisFixe(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteFraisFixe(arg0);
+            return result;
+        }
+    }
+    async deleteHistoriqueClotureEntry(arg0: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteHistoriqueClotureEntry(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteHistoriqueClotureEntry(arg0);
+            return result;
+        }
+    }
+    async deleteImmobilisation(arg0: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteImmobilisation(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteImmobilisation(arg0);
+            return result;
+        }
+    }
+    async deleteIngredient(arg0: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteIngredient(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteIngredient(arg0);
+            return result;
+        }
+    }
+    async deleteMouvementStock(arg0: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteMouvementStock(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteMouvementStock(arg0);
+            return result;
+        }
+    }
+    async deleteRecette(arg0: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteRecette(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteRecette(arg0);
+            return result;
+        }
+    }
+    async deleteSalaire(arg0: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteSalaire(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteSalaire(arg0);
+            return result;
+        }
+    }
+    async deleteVenteJournaliere(arg0: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteVenteJournaliere(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteVenteJournaliere(arg0);
+            return result;
+        }
+    }
+    async getAssocieById(arg0: string): Promise<Associe | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAssocieById(arg0);
+                return from_candid_opt_n1(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAssocieById(arg0);
+            return from_candid_opt_n1(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getCategorieCarteById(arg0: string): Promise<CategorieCarte | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCategorieCarteById(arg0);
+                return from_candid_opt_n2(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCategorieCarteById(arg0);
+            return from_candid_opt_n2(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getEmpruntById(arg0: string): Promise<Emprunt | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getEmpruntById(arg0);
+                return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getEmpruntById(arg0);
+            return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getFraisFixeById(arg0: string): Promise<FraisFixe | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getFraisFixeById(arg0);
+                return from_candid_opt_n4(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getFraisFixeById(arg0);
+            return from_candid_opt_n4(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getHistoriqueClotureById(arg0: string): Promise<HistoriqueCloture | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getHistoriqueClotureById(arg0);
+                return from_candid_opt_n5(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getHistoriqueClotureById(arg0);
+            return from_candid_opt_n5(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getHypothesesBP(): Promise<HypothesesBP | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getHypothesesBP();
+                return from_candid_opt_n6(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getHypothesesBP();
+            return from_candid_opt_n6(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getImmobilisationById(arg0: string): Promise<Immobilisation | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getImmobilisationById(arg0);
+                return from_candid_opt_n7(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getImmobilisationById(arg0);
+            return from_candid_opt_n7(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getIngredientById(arg0: string): Promise<Ingredient | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getIngredientById(arg0);
+                return from_candid_opt_n8(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getIngredientById(arg0);
+            return from_candid_opt_n8(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getMouvementStockById(arg0: string): Promise<MouvementStock | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getMouvementStockById(arg0);
+                return from_candid_opt_n9(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getMouvementStockById(arg0);
+            return from_candid_opt_n9(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getRecetteById(arg0: string): Promise<Recette | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getRecetteById(arg0);
+                return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getRecetteById(arg0);
+            return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getSalaireById(arg0: string): Promise<Salaire | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getSalaireById(arg0);
+                return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getSalaireById(arg0);
+            return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getVenteJournaliereById(arg0: string): Promise<VenteJournaliere | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getVenteJournaliereById(arg0);
+                return from_candid_opt_n12(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getVenteJournaliereById(arg0);
+            return from_candid_opt_n12(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async listAssocies(): Promise<Array<Associe>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listAssocies();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listAssocies();
+            return result;
+        }
+    }
+    async listCategoriesCarte(): Promise<Array<CategorieCarte>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listCategoriesCarte();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listCategoriesCarte();
+            return result;
+        }
+    }
+    async listEmprunts(): Promise<Array<Emprunt>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listEmprunts();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listEmprunts();
+            return result;
+        }
+    }
+    async listFraisFixes(): Promise<Array<FraisFixe>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listFraisFixes();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listFraisFixes();
+            return result;
+        }
+    }
+    async listHistoriqueClotures(): Promise<Array<HistoriqueCloture>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listHistoriqueClotures();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listHistoriqueClotures();
+            return result;
+        }
+    }
+    async listImmobilisations(): Promise<Array<Immobilisation>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listImmobilisations();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listImmobilisations();
+            return result;
+        }
+    }
+    async listIngredients(): Promise<Array<Ingredient>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listIngredients();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listIngredients();
+            return result;
+        }
+    }
+    async listMouvementsStock(): Promise<Array<MouvementStock>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listMouvementsStock();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listMouvementsStock();
+            return result;
+        }
+    }
+    async listRecettes(): Promise<Array<Recette>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listRecettes();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listRecettes();
+            return result;
+        }
+    }
+    async listSalaires(): Promise<Array<Salaire>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listSalaires();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listSalaires();
+            return result;
+        }
+    }
+    async listVentesJournalieres(): Promise<Array<VenteJournaliere>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listVentesJournalieres();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listVentesJournalieres();
+            return result;
+        }
+    }
+    async saveHypothesesBP(arg0: HypothesesBP): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.saveHypothesesBP(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.saveHypothesesBP(arg0);
+            return result;
+        }
+    }
+    async updateAssocie(arg0: string, arg1: AssocieInput): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateAssocie(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateAssocie(arg0, arg1);
+            return result;
+        }
+    }
+    async updateCategorieCarte(arg0: string, arg1: CategorieCarteInput): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateCategorieCarte(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateCategorieCarte(arg0, arg1);
+            return result;
+        }
+    }
+    async updateEmprunt(arg0: string, arg1: EmpruntInput): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateEmprunt(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateEmprunt(arg0, arg1);
+            return result;
+        }
+    }
+    async updateFraisFixe(arg0: string, arg1: FraisFixeInput): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateFraisFixe(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateFraisFixe(arg0, arg1);
+            return result;
+        }
+    }
+    async updateHistoriqueClotureEntry(arg0: string, arg1: HistoriqueClotureInput): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateHistoriqueClotureEntry(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateHistoriqueClotureEntry(arg0, arg1);
+            return result;
+        }
+    }
+    async updateImmobilisation(arg0: string, arg1: ImmobilisationInput): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateImmobilisation(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateImmobilisation(arg0, arg1);
+            return result;
+        }
+    }
+    async updateIngredient(arg0: string, arg1: IngredientInput): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateIngredient(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateIngredient(arg0, arg1);
+            return result;
+        }
+    }
+    async updateMouvementStock(arg0: string, arg1: MouvementStockInput): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateMouvementStock(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateMouvementStock(arg0, arg1);
+            return result;
+        }
+    }
+    async updateRecette(arg0: string, arg1: RecetteInput): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateRecette(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateRecette(arg0, arg1);
+            return result;
+        }
+    }
+    async updateSalaire(arg0: string, arg1: SalaireInput): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateSalaire(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateSalaire(arg0, arg1);
+            return result;
+        }
+    }
+    async updateVenteJournaliere(arg0: string, arg1: VenteJournaliereInput): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateVenteJournaliere(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateVenteJournaliere(arg0, arg1);
+            return result;
+        }
+    }
+}
+function from_candid_opt_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Associe]): Associe | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Recette]): Recette | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Salaire]): Salaire | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_VenteJournaliere]): VenteJournaliere | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_CategorieCarte]): CategorieCarte | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Emprunt]): Emprunt | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_FraisFixe]): FraisFixe | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_HistoriqueCloture]): HistoriqueCloture | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_HypothesesBP]): HypothesesBP | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Immobilisation]): Immobilisation | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Ingredient]): Ingredient | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_MouvementStock]): MouvementStock | null {
+    return value.length === 0 ? null : value[0];
 }
 export interface CreateActorOptions {
     agent?: Agent;

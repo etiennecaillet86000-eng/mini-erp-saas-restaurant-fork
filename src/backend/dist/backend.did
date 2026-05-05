@@ -1,2 +1,283 @@
+type VenteJournaliereInput = 
+ record {
+   date: text;
+   montant: float64;
+ };
+type VenteJournaliere = 
+ record {
+   date: text;
+   id: text;
+   montant: float64;
+ };
+type SalaireInput = 
+ record {
+   chargesPatronales: float64;
+   coutTotalEmployeur: float64;
+   heuresHebdo: float64;
+   nom: text;
+   poste: text;
+   prenom: text;
+   salaireNet: float64;
+   typeContrat: text;
+ };
+type Salaire = 
+ record {
+   chargesPatronales: float64;
+   coutTotalEmployeur: float64;
+   heuresHebdo: float64;
+   id: text;
+   nom: text;
+   poste: text;
+   prenom: text;
+   salaireNet: float64;
+   typeContrat: text;
+ };
+type RecetteInput = 
+ record {
+   categorie: text;
+   categorieId: text;
+   ingredients: vec RecetteIngredient;
+   nom: text;
+   prixVenteHT: float64;
+   tva: float64;
+   volumeHebdo: float64;
+ };
+type RecetteIngredient = 
+ record {
+   ingredientId: text;
+   quantiteNette: float64;
+ };
+type Recette = 
+ record {
+   categorie: text;
+   categorieId: text;
+   id: text;
+   ingredients: vec RecetteIngredient;
+   nom: text;
+   prixVenteHT: float64;
+   tva: float64;
+   volumeHebdo: float64;
+ };
+type MouvementStockInput = 
+ record {
+   date: text;
+   ingredientId: text;
+   motif: text;
+   quantite: float64;
+   "type": text;
+ };
+type MouvementStock = 
+ record {
+   date: text;
+   id: text;
+   ingredientId: text;
+   motif: text;
+   quantite: float64;
+   "type": text;
+ };
+type IngredientInput = 
+ record {
+   famille: text;
+   nom: text;
+   perteMatierePct: float64;
+   prixAchatHT: float64;
+   seuilSecurite: float64;
+   unite: text;
+ };
+type Ingredient = 
+ record {
+   famille: text;
+   id: text;
+   nom: text;
+   perteMatierePct: float64;
+   prixAchatHT: float64;
+   seuilSecurite: float64;
+   unite: text;
+ };
+type ImmobilisationInput = 
+ record {
+   dateAchat: text;
+   dureeAmortissementAns: int;
+   nom: text;
+   "type": text;
+   valeurAchatHT: float64;
+ };
+type Immobilisation = 
+ record {
+   dateAchat: text;
+   dureeAmortissementAns: int;
+   id: text;
+   nom: text;
+   "type": text;
+   valeurAchatHT: float64;
+ };
+type HypothesesBP = 
+ record {
+   couvertsParJour: float64;
+   croissanceCA_BP: float64;
+   croissanceCA_Reel: float64;
+   inflationCharges_BP: float64;
+   inflationCharges_Reel: float64;
+   joursOuvertureAn: float64;
+   joursOuvertureParSemaine: float64;
+   margeCibleGlobale: float64;
+   objectifCAannuel: float64;
+   pacteSocialActif: bool;
+   remunerationAssociesAnnuelle: float64;
+   semainesOuverture: float64;
+   seuilIS: float64;
+   statutJuridique: text;
+   tauxChargesPatronales: float64;
+   tauxChargesSalariales: float64;
+   tauxCroissanceAnnuel: float64;
+   tauxCroissanceCA: float64;
+   tauxIS_bas: float64;
+   tauxIS_haut: float64;
+   tauxInflationAnnuel: float64;
+   tauxInflationCharges: float64;
+   ticketMoyenCible: float64;
+ };
+type HistoriqueClotureInput = 
+ record {
+   caTotal: float64;
+   chargesVariables: float64;
+   date: text;
+   valide: bool;
+   ventes: vec CloturVente;
+ };
+type HistoriqueCloture = 
+ record {
+   caTotal: float64;
+   chargesVariables: float64;
+   date: text;
+   id: text;
+   valide: bool;
+   ventes: vec CloturVente;
+ };
+type FraisFixeInput = 
+ record {
+   categorie: text;
+   frequence: text;
+   libelle: text;
+   montant: float64;
+ };
+type FraisFixe = 
+ record {
+   categorie: text;
+   frequence: text;
+   id: text;
+   libelle: text;
+   montant: float64;
+ };
+type EmpruntInput = 
+ record {
+   capitalInitial: float64;
+   dateDebut: text;
+   dureeMois: int;
+   nom: text;
+   tauxAnnuel: float64;
+ };
+type Emprunt = 
+ record {
+   capitalInitial: float64;
+   dateDebut: text;
+   dureeMois: int;
+   id: text;
+   nom: text;
+   tauxAnnuel: float64;
+ };
+type CloturVente = 
+ record {
+   quantite: float64;
+   recetteId: text;
+ };
+type CategorieCarteInput = 
+ record {
+   foodCostCible: float64;
+   mixCiblePct: float64;
+   nom: text;
+   ticketMoyen: float64;
+ };
+type CategorieCarte = 
+ record {
+   foodCostCible: float64;
+   id: text;
+   mixCiblePct: float64;
+   nom: text;
+   ticketMoyen: float64;
+ };
+type AssocieInput = 
+ record {
+   apportInitial: float64;
+   montantRembourse: float64;
+   nom: text;
+   remunerationMensuelle: float64;
+ };
+type Associe = 
+ record {
+   apportInitial: float64;
+   id: text;
+   montantRembourse: float64;
+   nom: text;
+   remunerationMensuelle: float64;
+ };
 service : {
+  createAssocie: (input: AssocieInput) -> (text);
+  createCategorieCarte: (input: CategorieCarteInput) -> (text);
+  createEmprunt: (input: EmpruntInput) -> (text);
+  createFraisFixe: (input: FraisFixeInput) -> (text);
+  createHistoriqueClotureEntry: (input: HistoriqueClotureInput) -> (text);
+  createImmobilisation: (input: ImmobilisationInput) -> (text);
+  createIngredient: (input: IngredientInput) -> (text);
+  createMouvementStock: (input: MouvementStockInput) -> (text);
+  createRecette: (input: RecetteInput) -> (text);
+  createSalaire: (input: SalaireInput) -> (text);
+  createVenteJournaliere: (input: VenteJournaliereInput) -> (text);
+  deleteAssocie: (id: text) -> (bool);
+  deleteCategorieCarte: (id: text) -> (bool);
+  deleteEmprunt: (id: text) -> (bool);
+  deleteFraisFixe: (id: text) -> (bool);
+  deleteHistoriqueClotureEntry: (id: text) -> (bool);
+  deleteImmobilisation: (id: text) -> (bool);
+  deleteIngredient: (id: text) -> (bool);
+  deleteMouvementStock: (id: text) -> (bool);
+  deleteRecette: (id: text) -> (bool);
+  deleteSalaire: (id: text) -> (bool);
+  deleteVenteJournaliere: (id: text) -> (bool);
+  getAssocieById: (id: text) -> (opt Associe) query;
+  getCategorieCarteById: (id: text) -> (opt CategorieCarte) query;
+  getEmpruntById: (id: text) -> (opt Emprunt) query;
+  getFraisFixeById: (id: text) -> (opt FraisFixe) query;
+  getHistoriqueClotureById: (id: text) -> (opt HistoriqueCloture) query;
+  getHypothesesBP: () -> (opt HypothesesBP) query;
+  getImmobilisationById: (id: text) -> (opt Immobilisation) query;
+  getIngredientById: (id: text) -> (opt Ingredient) query;
+  getMouvementStockById: (id: text) -> (opt MouvementStock) query;
+  getRecetteById: (id: text) -> (opt Recette) query;
+  getSalaireById: (id: text) -> (opt Salaire) query;
+  getVenteJournaliereById: (id: text) -> (opt VenteJournaliere) query;
+  listAssocies: () -> (vec Associe) query;
+  listCategoriesCarte: () -> (vec CategorieCarte) query;
+  listEmprunts: () -> (vec Emprunt) query;
+  listFraisFixes: () -> (vec FraisFixe) query;
+  listHistoriqueClotures: () -> (vec HistoriqueCloture) query;
+  listImmobilisations: () -> (vec Immobilisation) query;
+  listIngredients: () -> (vec Ingredient) query;
+  listMouvementsStock: () -> (vec MouvementStock) query;
+  listRecettes: () -> (vec Recette) query;
+  listSalaires: () -> (vec Salaire) query;
+  listVentesJournalieres: () -> (vec VenteJournaliere) query;
+  saveHypothesesBP: (hypotheses: HypothesesBP) -> (bool);
+  updateAssocie: (id: text, input: AssocieInput) -> (bool);
+  updateCategorieCarte: (id: text, input: CategorieCarteInput) -> (bool);
+  updateEmprunt: (id: text, input: EmpruntInput) -> (bool);
+  updateFraisFixe: (id: text, input: FraisFixeInput) -> (bool);
+  updateHistoriqueClotureEntry: (id: text, input: HistoriqueClotureInput) ->
+   (bool);
+  updateImmobilisation: (id: text, input: ImmobilisationInput) -> (bool);
+  updateIngredient: (id: text, input: IngredientInput) -> (bool);
+  updateMouvementStock: (id: text, input: MouvementStockInput) -> (bool);
+  updateRecette: (id: text, input: RecetteInput) -> (bool);
+  updateSalaire: (id: text, input: SalaireInput) -> (bool);
+  updateVenteJournaliere: (id: text, input: VenteJournaliereInput) -> (bool);
 }

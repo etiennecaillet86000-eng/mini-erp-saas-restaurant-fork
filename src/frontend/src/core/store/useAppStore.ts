@@ -1,4 +1,31 @@
 import type { FraisFixe, Salarie } from "@/core/types/models";
+import {
+  syncAddAssocie,
+  syncAddCategorie,
+  syncAddCloture,
+  syncAddEmprunt,
+  syncAddImmobilisation,
+  syncAddIngredient,
+  syncAddMouvementStock,
+  syncAddRecette,
+  syncAddVenteJournaliere,
+  syncDeleteAssocie,
+  syncDeleteCategorie,
+  syncDeleteEmprunt,
+  syncDeleteImmobilisation,
+  syncDeleteIngredient,
+  syncDeleteRecette,
+  syncDeleteVenteJournaliere,
+  syncReplaceFraisFixes,
+  syncReplaceSalaires,
+  syncSaveHypotheses,
+  syncUpdateAssocie,
+  syncUpdateCategorie,
+  syncUpdateEmprunt,
+  syncUpdateImmobilisation,
+  syncUpdateIngredient,
+  syncUpdateRecette,
+} from "@/lib/syncBackend";
 import type {
   CategorieCarte,
   IngredientFB,
@@ -527,124 +554,180 @@ export const useAppStore = create<AppStore>()(
       ventesJournalieres: [],
       historiqueClotures: [],
 
-      setSalaries: (salaries) => set({ salaries }),
-      setFraisFixes: (fraisFixes) => set({ fraisFixes }),
+      setSalaries: (salaries) => {
+        set((state) => {
+          void syncReplaceSalaires(salaries, state.salaries);
+          return { salaries };
+        });
+      },
+      setFraisFixes: (fraisFixes) => {
+        set((state) => {
+          void syncReplaceFraisFixes(fraisFixes, state.fraisFixes);
+          return { fraisFixes };
+        });
+      },
       setHypothesesBP: (hypotheses) =>
         set((state) => ({
           hypothesesBP: { ...state.hypothesesBP, ...hypotheses },
         })),
       updateHypotheses: (updates) =>
-        set((state) => ({
-          hypothesesBP: { ...state.hypothesesBP, ...updates },
-        })),
+        set((state) => {
+          const next = { ...state.hypothesesBP, ...updates };
+          syncSaveHypotheses(next);
+          return { hypothesesBP: next };
+        }),
 
       updateConfigEtablissement: (config) =>
         set((state) => ({
           configEtablissement: { ...state.configEtablissement, ...config },
         })),
 
-      addIngredient: (ing) =>
-        set((state) => ({ ingredients: [...state.ingredients, ing] })),
+      addIngredient: (ing) => {
+        syncAddIngredient(ing);
+        set((state) => ({ ingredients: [...state.ingredients, ing] }));
+      },
       updateIngredient: (id, updates) =>
-        set((state) => ({
-          ingredients: state.ingredients.map((i) =>
-            i.id === id ? { ...i, ...updates } : i,
-          ),
-        })),
-      deleteIngredient: (id) =>
+        set((state) => {
+          const current = state.ingredients.find((i) => i.id === id);
+          if (current) syncUpdateIngredient(id, updates, current);
+          return {
+            ingredients: state.ingredients.map((i) =>
+              i.id === id ? { ...i, ...updates } : i,
+            ),
+          };
+        }),
+      deleteIngredient: (id) => {
+        syncDeleteIngredient(id);
         set((state) => ({
           ingredients: state.ingredients.filter((i) => i.id !== id),
-        })),
+        }));
+      },
 
-      addRecette: (r) => set((state) => ({ recettes: [...state.recettes, r] })),
+      addRecette: (r) => {
+        syncAddRecette(r);
+        set((state) => ({ recettes: [...state.recettes, r] }));
+      },
       updateRecette: (id, updates) =>
-        set((state) => ({
-          recettes: state.recettes.map((r) =>
-            r.id === id ? { ...r, ...updates } : r,
-          ),
-        })),
-      deleteRecette: (id) =>
+        set((state) => {
+          const current = state.recettes.find((r) => r.id === id);
+          if (current) syncUpdateRecette(id, updates, current);
+          return {
+            recettes: state.recettes.map((r) =>
+              r.id === id ? { ...r, ...updates } : r,
+            ),
+          };
+        }),
+      deleteRecette: (id) => {
+        syncDeleteRecette(id);
         set((state) => ({
           recettes: state.recettes.filter((r) => r.id !== id),
-        })),
+        }));
+      },
 
       updateCategorie: (id, updates) =>
-        set((state) => ({
-          categoriesCarte: state.categoriesCarte.map((c) =>
-            c.id === id ? { ...c, ...updates } : c,
-          ),
-        })),
-      addCategorie: (categorie) =>
+        set((state) => {
+          const current = state.categoriesCarte.find((c) => c.id === id);
+          if (current) syncUpdateCategorie(id, updates, current);
+          return {
+            categoriesCarte: state.categoriesCarte.map((c) =>
+              c.id === id ? { ...c, ...updates } : c,
+            ),
+          };
+        }),
+      addCategorie: (categorie) => {
+        syncAddCategorie(categorie);
         set((state) => ({
           categoriesCarte: [...state.categoriesCarte, categorie],
-        })),
-      deleteCategorie: (id) =>
+        }));
+      },
+      deleteCategorie: (id) => {
+        syncDeleteCategorie(id);
         set((state) => ({
           categoriesCarte: state.categoriesCarte.filter((c) => c.id !== id),
-        })),
+        }));
+      },
 
       resetVolumes: () =>
         set((state) => ({
           recettes: state.recettes.map((r) => ({ ...r, volumeHebdo: 0 })),
         })),
 
-      addAssocie: (associe) =>
-        set((state) => ({
-          associes: [
-            ...state.associes,
-            { ...associe, id: crypto.randomUUID() },
-          ],
-        })),
+      addAssocie: (associe) => {
+        const full = { ...associe, id: crypto.randomUUID() };
+        syncAddAssocie(full);
+        set((state) => ({ associes: [...state.associes, full] }));
+      },
       updateAssocie: (id, updates) =>
-        set((state) => ({
-          associes: state.associes.map((a) =>
-            a.id === id ? { ...a, ...updates } : a,
-          ),
-        })),
-      removeAssocie: (id) =>
+        set((state) => {
+          const current = state.associes.find((a) => a.id === id);
+          if (current) syncUpdateAssocie(id, updates, current);
+          return {
+            associes: state.associes.map((a) =>
+              a.id === id ? { ...a, ...updates } : a,
+            ),
+          };
+        }),
+      removeAssocie: (id) => {
+        syncDeleteAssocie(id);
         set((state) => ({
           associes: state.associes.filter((a) => a.id !== id),
-        })),
+        }));
+      },
 
-      addEmprunt: (emprunt) =>
-        set((state) => ({ emprunts: [...state.emprunts, emprunt] })),
+      addEmprunt: (emprunt) => {
+        syncAddEmprunt(emprunt);
+        set((state) => ({ emprunts: [...state.emprunts, emprunt] }));
+      },
       updateEmprunt: (id, updates) =>
-        set((state) => ({
-          emprunts: state.emprunts.map((e) =>
-            e.id === id ? { ...e, ...updates } : e,
-          ),
-        })),
-      removeEmprunt: (id) =>
+        set((state) => {
+          const current = state.emprunts.find((e) => e.id === id);
+          if (current) syncUpdateEmprunt(id, updates, current);
+          return {
+            emprunts: state.emprunts.map((e) =>
+              e.id === id ? { ...e, ...updates } : e,
+            ),
+          };
+        }),
+      removeEmprunt: (id) => {
+        syncDeleteEmprunt(id);
         set((state) => ({
           emprunts: state.emprunts.filter((e) => e.id !== id),
-        })),
+        }));
+      },
 
-      addImmobilisation: (immobilisation) =>
+      addImmobilisation: (immobilisation) => {
+        syncAddImmobilisation(immobilisation);
         set((state) => ({
           immobilisations: [...state.immobilisations, immobilisation],
-        })),
+        }));
+      },
       updateImmobilisation: (id, updates) =>
-        set((state) => ({
-          immobilisations: state.immobilisations.map((i) =>
-            i.id === id ? { ...i, ...updates } : i,
-          ),
-        })),
-      removeImmobilisation: (id) =>
+        set((state) => {
+          const current = state.immobilisations.find((i) => i.id === id);
+          if (current) syncUpdateImmobilisation(id, updates, current);
+          return {
+            immobilisations: state.immobilisations.map((i) =>
+              i.id === id ? { ...i, ...updates } : i,
+            ),
+          };
+        }),
+      removeImmobilisation: (id) => {
+        syncDeleteImmobilisation(id);
         set((state) => ({
           immobilisations: state.immobilisations.filter((i) => i.id !== id),
-        })),
+        }));
+      },
 
       addMouvementStock: (mvt) =>
-        set((state) => ({
-          mouvementsStock: [
-            ...state.mouvementsStock,
-            {
-              ...mvt,
-              id: crypto.randomUUID(),
-              date: new Date().toISOString(),
-            },
-          ],
-        })),
+        set((state) => {
+          const full = {
+            ...mvt,
+            id: crypto.randomUUID(),
+            date: new Date().toISOString(),
+          };
+          syncAddMouvementStock(full);
+          return { mouvementsStock: [...state.mouvementsStock, full] };
+        }),
 
       deduireStockDepuisVentes: (recetteId, quantiteVendue) =>
         set((state) => {
@@ -662,21 +745,26 @@ export const useAppStore = create<AppStore>()(
               date: new Date().toISOString(),
             };
           });
+          nouveauxMvts.forEach(syncAddMouvementStock);
           return {
             mouvementsStock: [...state.mouvementsStock, ...nouveauxMvts],
           };
         }),
 
-      addVenteJournaliere: (vente) =>
+      addVenteJournaliere: (vente) => {
+        syncAddVenteJournaliere(vente);
         set((state) => ({
           ventesJournalieres: [...state.ventesJournalieres, vente],
-        })),
-      removeVenteJournaliere: (id) =>
+        }));
+      },
+      removeVenteJournaliere: (id) => {
+        syncDeleteVenteJournaliere(id);
         set((state) => ({
           ventesJournalieres: state.ventesJournalieres.filter(
             (v) => v.id !== id,
           ),
-        })),
+        }));
+      },
 
       validerJournee: (cloture) =>
         set((state) => {
@@ -715,6 +803,9 @@ export const useAppStore = create<AppStore>()(
             montant: cloture.caTotal,
           };
 
+          syncAddCloture(newCloture);
+          nouveauxMvtsStock.forEach(syncAddMouvementStock);
+          syncAddVenteJournaliere(nouvelleVente);
           return {
             historiqueClotures: [...state.historiqueClotures, newCloture],
             mouvementsStock: [...state.mouvementsStock, ...nouveauxMvtsStock],

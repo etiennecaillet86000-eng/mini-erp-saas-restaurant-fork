@@ -1,4 +1,197 @@
 // Version: 1.0.0
+type Associe__398762956 =
+  {
+    apportInitial : Float;
+    id : Text;
+    montantRembourse : Float;
+    nom : Text;
+    remunerationMensuelle : Float
+  };
+type CategorieCarte__451181181 =
+  {
+    foodCostCible : Float;
+    id : Text;
+    mixCiblePct : Float;
+    nom : Text;
+    ticketMoyen : Float
+  };
+type CloturVente__679532499 = {quantite : Float; recetteId : Text};
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Emprunt__397177417 =
+  {
+    capitalInitial : Float;
+    dateDebut : Text;
+    dureeMois : Int;
+    id : Text;
+    nom : Text;
+    tauxAnnuel : Float
+  };
+type FraisFixe__841919947 =
+  {
+    categorie : Text;
+    frequence : Text;
+    id : Text;
+    libelle : Text;
+    montant : Float
+  };
+type HistoriqueCloture__829744476 =
+  {
+    caTotal : Float;
+    chargesVariables : Float;
+    date : Text;
+    id : Text;
+    valide : Bool;
+    ventes : [CloturVente__679532499]
+  };
+type HypothesesBP__604889490 =
+  {
+    couvertsParJour : Float;
+    croissanceCA_BP : Float;
+    croissanceCA_Reel : Float;
+    inflationCharges_BP : Float;
+    inflationCharges_Reel : Float;
+    joursOuvertureAn : Float;
+    joursOuvertureParSemaine : Float;
+    margeCibleGlobale : Float;
+    objectifCAannuel : Float;
+    pacteSocialActif : Bool;
+    remunerationAssociesAnnuelle : Float;
+    semainesOuverture : Float;
+    seuilIS : Float;
+    statutJuridique : Text;
+    tauxChargesPatronales : Float;
+    tauxChargesSalariales : Float;
+    tauxCroissanceAnnuel : Float;
+    tauxCroissanceCA : Float;
+    tauxIS_bas : Float;
+    tauxIS_haut : Float;
+    tauxInflationAnnuel : Float;
+    tauxInflationCharges : Float;
+    ticketMoyenCible : Float
+  };
+type Immobilisation__841301446 =
+  {
+    dateAchat : Text;
+    dureeAmortissementAns : Int;
+    id : Text;
+    nom : Text;
+    type_ : Text;
+    valeurAchatHT : Float
+  };
+type Ingredient__1039528209 =
+  {
+    famille : Text;
+    id : Text;
+    nom : Text;
+    perteMatierePct : Float;
+    prixAchatHT : Float;
+    seuilSecurite : Float;
+    unite : Text
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type MouvementStock__242272371 =
+  {
+    date : Text;
+    id : Text;
+    ingredientId : Text;
+    motif : Text;
+    quantite : Float;
+    type_ : Text
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type RecetteIngredient__859063580 =
+  {ingredientId : Text; quantiteNette : Float};
+type Recette__421911811 =
+  {
+    categorie : Text;
+    categorieId : Text;
+    id : Text;
+    ingredients : [RecetteIngredient__859063580];
+    nom : Text;
+    prixVenteHT : Float;
+    tva : Float;
+    volumeHebdo : Float
+  };
+type Salaire__853769596 =
+  {
+    chargesPatronales : Float;
+    coutTotalEmployeur : Float;
+    heuresHebdo : Float;
+    id : Text;
+    nom : Text;
+    poste : Text;
+    prenom : Text;
+    salaireNet : Float;
+    typeContrat : Text
+  };
+type VenteJournaliere__79079659 = {date : Text; id : Text; montant : Float};
 actor {
-  
+  stable var associes :
+    {
+      var root : Node__46230540<Text, Associe__398762956>;
+      var size : Nat__490723111
+    };
+  stable var categoriesCarte :
+    {
+      var root : Node__46230540<Text, CategorieCarte__451181181>;
+      var size : Nat__490723111
+    };
+  stable var counters :
+    {var root : Node__46230540<Text, Nat>; var size : Nat__490723111};
+  stable var emprunts :
+    {
+      var root : Node__46230540<Text, Emprunt__397177417>;
+      var size : Nat__490723111
+    };
+  stable var fraisFixes :
+    {
+      var root : Node__46230540<Text, FraisFixe__841919947>;
+      var size : Nat__490723111
+    };
+  stable var historiqueClotures :
+    {
+      var root : Node__46230540<Text, HistoriqueCloture__829744476>;
+      var size : Nat__490723111
+    };
+  stable var hypothesesBP :
+    {
+      var root : Node__46230540<Text, HypothesesBP__604889490>;
+      var size : Nat__490723111
+    };
+  stable var immobilisations :
+    {
+      var root : Node__46230540<Text, Immobilisation__841301446>;
+      var size : Nat__490723111
+    };
+  stable var ingredients :
+    {
+      var root : Node__46230540<Text, Ingredient__1039528209>;
+      var size : Nat__490723111
+    };
+  stable var mouvementsStock :
+    {
+      var root : Node__46230540<Text, MouvementStock__242272371>;
+      var size : Nat__490723111
+    };
+  stable var recettes :
+    {
+      var root : Node__46230540<Text, Recette__421911811>;
+      var size : Nat__490723111
+    };
+  stable var salaires :
+    {
+      var root : Node__46230540<Text, Salaire__853769596>;
+      var size : Nat__490723111
+    };
+  stable var ventesJournalieres :
+    {
+      var root : Node__46230540<Text, VenteJournaliere__79079659>;
+      var size : Nat__490723111
+    }
 };

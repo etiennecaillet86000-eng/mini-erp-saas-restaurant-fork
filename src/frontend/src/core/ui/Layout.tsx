@@ -23,9 +23,10 @@ const PATH_TITLES: Record<string, string> = {
 
 interface LayoutProps {
   children: React.ReactNode;
+  onLogout: () => void;
 }
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children, onLogout }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const title = PATH_TITLES[location.pathname] ?? "Mini-ERP";
@@ -33,7 +34,11 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       {/* Sidebar */}
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <Sidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        onLogout={onLogout}
+      />
 
       {/* Main content column */}
       <div className="flex flex-1 flex-col min-w-0 overflow-hidden">

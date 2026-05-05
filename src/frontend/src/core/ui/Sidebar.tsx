@@ -12,6 +12,7 @@ import {
   Handshake,
   Landmark,
   LayoutDashboard,
+  LogOut,
   PackageOpen,
   Settings,
   TrendingUp,
@@ -131,9 +132,10 @@ const NAV_SECTIONS: NavSection[] = [
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  onLogout?: () => void;
 }
 
-export default function Sidebar({ isOpen, onClose }: SidebarProps) {
+export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -219,8 +221,24 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
 
         <Separator className="bg-sidebar-border" />
 
+        {/* Logout */}
+        <div className="px-3 py-3">
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 px-3 py-2 h-10 font-medium text-sm text-sidebar-foreground/70 hover:bg-destructive/10 hover:text-destructive transition-smooth rounded-md"
+            onClick={onLogout}
+            data-ocid="nav.logout.button"
+            aria-label="Déconnexion"
+          >
+            <LogOut className="h-4 w-4" />
+            Déconnexion
+          </Button>
+        </div>
+
+        <Separator className="bg-sidebar-border" />
+
         {/* Footer */}
-        <div className="px-5 py-4 text-[11px] text-sidebar-accent-foreground">
+        <div className="px-5 py-3 text-[11px] text-sidebar-accent-foreground">
           © {new Date().getFullYear()} Mini-ERP SaaS
         </div>
       </aside>

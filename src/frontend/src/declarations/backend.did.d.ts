@@ -10,7 +10,266 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
-export interface _SERVICE {}
+export interface Associe {
+  'id' : string,
+  'nom' : string,
+  'montantRembourse' : number,
+  'apportInitial' : number,
+  'remunerationMensuelle' : number,
+}
+export interface AssocieInput {
+  'nom' : string,
+  'montantRembourse' : number,
+  'apportInitial' : number,
+  'remunerationMensuelle' : number,
+}
+export interface CategorieCarte {
+  'id' : string,
+  'nom' : string,
+  'ticketMoyen' : number,
+  'foodCostCible' : number,
+  'mixCiblePct' : number,
+}
+export interface CategorieCarteInput {
+  'nom' : string,
+  'ticketMoyen' : number,
+  'foodCostCible' : number,
+  'mixCiblePct' : number,
+}
+export interface CloturVente { 'recetteId' : string, 'quantite' : number }
+export interface Emprunt {
+  'id' : string,
+  'nom' : string,
+  'capitalInitial' : number,
+  'tauxAnnuel' : number,
+  'dateDebut' : string,
+  'dureeMois' : bigint,
+}
+export interface EmpruntInput {
+  'nom' : string,
+  'capitalInitial' : number,
+  'tauxAnnuel' : number,
+  'dateDebut' : string,
+  'dureeMois' : bigint,
+}
+export interface FraisFixe {
+  'id' : string,
+  'categorie' : string,
+  'libelle' : string,
+  'montant' : number,
+  'frequence' : string,
+}
+export interface FraisFixeInput {
+  'categorie' : string,
+  'libelle' : string,
+  'montant' : number,
+  'frequence' : string,
+}
+export interface HistoriqueCloture {
+  'id' : string,
+  'chargesVariables' : number,
+  'date' : string,
+  'valide' : boolean,
+  'caTotal' : number,
+  'ventes' : Array<CloturVente>,
+}
+export interface HistoriqueClotureInput {
+  'chargesVariables' : number,
+  'date' : string,
+  'valide' : boolean,
+  'caTotal' : number,
+  'ventes' : Array<CloturVente>,
+}
+export interface HypothesesBP {
+  'croissanceCA_Reel' : number,
+  'joursOuvertureParSemaine' : number,
+  'inflationCharges_Reel' : number,
+  'inflationCharges_BP' : number,
+  'objectifCAannuel' : number,
+  'pacteSocialActif' : boolean,
+  'semainesOuverture' : number,
+  'tauxIS_haut' : number,
+  'croissanceCA_BP' : number,
+  'margeCibleGlobale' : number,
+  'remunerationAssociesAnnuelle' : number,
+  'couvertsParJour' : number,
+  'tauxCroissanceCA' : number,
+  'joursOuvertureAn' : number,
+  'tauxCroissanceAnnuel' : number,
+  'seuilIS' : number,
+  'ticketMoyenCible' : number,
+  'tauxInflationCharges' : number,
+  'statutJuridique' : string,
+  'tauxChargesPatronales' : number,
+  'tauxInflationAnnuel' : number,
+  'tauxChargesSalariales' : number,
+  'tauxIS_bas' : number,
+}
+export interface Immobilisation {
+  'id' : string,
+  'nom' : string,
+  'type' : string,
+  'valeurAchatHT' : number,
+  'dureeAmortissementAns' : bigint,
+  'dateAchat' : string,
+}
+export interface ImmobilisationInput {
+  'nom' : string,
+  'type' : string,
+  'valeurAchatHT' : number,
+  'dureeAmortissementAns' : bigint,
+  'dateAchat' : string,
+}
+export interface Ingredient {
+  'id' : string,
+  'nom' : string,
+  'seuilSecurite' : number,
+  'famille' : string,
+  'prixAchatHT' : number,
+  'unite' : string,
+  'perteMatierePct' : number,
+}
+export interface IngredientInput {
+  'nom' : string,
+  'seuilSecurite' : number,
+  'famille' : string,
+  'prixAchatHT' : number,
+  'unite' : string,
+  'perteMatierePct' : number,
+}
+export interface MouvementStock {
+  'id' : string,
+  'motif' : string,
+  'date' : string,
+  'type' : string,
+  'quantite' : number,
+  'ingredientId' : string,
+}
+export interface MouvementStockInput {
+  'motif' : string,
+  'date' : string,
+  'type' : string,
+  'quantite' : number,
+  'ingredientId' : string,
+}
+export interface Recette {
+  'id' : string,
+  'nom' : string,
+  'tva' : number,
+  'categorie' : string,
+  'prixVenteHT' : number,
+  'volumeHebdo' : number,
+  'categorieId' : string,
+  'ingredients' : Array<RecetteIngredient>,
+}
+export interface RecetteIngredient {
+  'quantiteNette' : number,
+  'ingredientId' : string,
+}
+export interface RecetteInput {
+  'nom' : string,
+  'tva' : number,
+  'categorie' : string,
+  'prixVenteHT' : number,
+  'volumeHebdo' : number,
+  'categorieId' : string,
+  'ingredients' : Array<RecetteIngredient>,
+}
+export interface Salaire {
+  'id' : string,
+  'nom' : string,
+  'chargesPatronales' : number,
+  'typeContrat' : string,
+  'salaireNet' : number,
+  'coutTotalEmployeur' : number,
+  'heuresHebdo' : number,
+  'prenom' : string,
+  'poste' : string,
+}
+export interface SalaireInput {
+  'nom' : string,
+  'chargesPatronales' : number,
+  'typeContrat' : string,
+  'salaireNet' : number,
+  'coutTotalEmployeur' : number,
+  'heuresHebdo' : number,
+  'prenom' : string,
+  'poste' : string,
+}
+export interface VenteJournaliere {
+  'id' : string,
+  'date' : string,
+  'montant' : number,
+}
+export interface VenteJournaliereInput { 'date' : string, 'montant' : number }
+export interface _SERVICE {
+  'createAssocie' : ActorMethod<[AssocieInput], string>,
+  'createCategorieCarte' : ActorMethod<[CategorieCarteInput], string>,
+  'createEmprunt' : ActorMethod<[EmpruntInput], string>,
+  'createFraisFixe' : ActorMethod<[FraisFixeInput], string>,
+  'createHistoriqueClotureEntry' : ActorMethod<
+    [HistoriqueClotureInput],
+    string
+  >,
+  'createImmobilisation' : ActorMethod<[ImmobilisationInput], string>,
+  'createIngredient' : ActorMethod<[IngredientInput], string>,
+  'createMouvementStock' : ActorMethod<[MouvementStockInput], string>,
+  'createRecette' : ActorMethod<[RecetteInput], string>,
+  'createSalaire' : ActorMethod<[SalaireInput], string>,
+  'createVenteJournaliere' : ActorMethod<[VenteJournaliereInput], string>,
+  'deleteAssocie' : ActorMethod<[string], boolean>,
+  'deleteCategorieCarte' : ActorMethod<[string], boolean>,
+  'deleteEmprunt' : ActorMethod<[string], boolean>,
+  'deleteFraisFixe' : ActorMethod<[string], boolean>,
+  'deleteHistoriqueClotureEntry' : ActorMethod<[string], boolean>,
+  'deleteImmobilisation' : ActorMethod<[string], boolean>,
+  'deleteIngredient' : ActorMethod<[string], boolean>,
+  'deleteMouvementStock' : ActorMethod<[string], boolean>,
+  'deleteRecette' : ActorMethod<[string], boolean>,
+  'deleteSalaire' : ActorMethod<[string], boolean>,
+  'deleteVenteJournaliere' : ActorMethod<[string], boolean>,
+  'getAssocieById' : ActorMethod<[string], [] | [Associe]>,
+  'getCategorieCarteById' : ActorMethod<[string], [] | [CategorieCarte]>,
+  'getEmpruntById' : ActorMethod<[string], [] | [Emprunt]>,
+  'getFraisFixeById' : ActorMethod<[string], [] | [FraisFixe]>,
+  'getHistoriqueClotureById' : ActorMethod<[string], [] | [HistoriqueCloture]>,
+  'getHypothesesBP' : ActorMethod<[], [] | [HypothesesBP]>,
+  'getImmobilisationById' : ActorMethod<[string], [] | [Immobilisation]>,
+  'getIngredientById' : ActorMethod<[string], [] | [Ingredient]>,
+  'getMouvementStockById' : ActorMethod<[string], [] | [MouvementStock]>,
+  'getRecetteById' : ActorMethod<[string], [] | [Recette]>,
+  'getSalaireById' : ActorMethod<[string], [] | [Salaire]>,
+  'getVenteJournaliereById' : ActorMethod<[string], [] | [VenteJournaliere]>,
+  'listAssocies' : ActorMethod<[], Array<Associe>>,
+  'listCategoriesCarte' : ActorMethod<[], Array<CategorieCarte>>,
+  'listEmprunts' : ActorMethod<[], Array<Emprunt>>,
+  'listFraisFixes' : ActorMethod<[], Array<FraisFixe>>,
+  'listHistoriqueClotures' : ActorMethod<[], Array<HistoriqueCloture>>,
+  'listImmobilisations' : ActorMethod<[], Array<Immobilisation>>,
+  'listIngredients' : ActorMethod<[], Array<Ingredient>>,
+  'listMouvementsStock' : ActorMethod<[], Array<MouvementStock>>,
+  'listRecettes' : ActorMethod<[], Array<Recette>>,
+  'listSalaires' : ActorMethod<[], Array<Salaire>>,
+  'listVentesJournalieres' : ActorMethod<[], Array<VenteJournaliere>>,
+  'saveHypothesesBP' : ActorMethod<[HypothesesBP], boolean>,
+  'updateAssocie' : ActorMethod<[string, AssocieInput], boolean>,
+  'updateCategorieCarte' : ActorMethod<[string, CategorieCarteInput], boolean>,
+  'updateEmprunt' : ActorMethod<[string, EmpruntInput], boolean>,
+  'updateFraisFixe' : ActorMethod<[string, FraisFixeInput], boolean>,
+  'updateHistoriqueClotureEntry' : ActorMethod<
+    [string, HistoriqueClotureInput],
+    boolean
+  >,
+  'updateImmobilisation' : ActorMethod<[string, ImmobilisationInput], boolean>,
+  'updateIngredient' : ActorMethod<[string, IngredientInput], boolean>,
+  'updateMouvementStock' : ActorMethod<[string, MouvementStockInput], boolean>,
+  'updateRecette' : ActorMethod<[string, RecetteInput], boolean>,
+  'updateSalaire' : ActorMethod<[string, SalaireInput], boolean>,
+  'updateVenteJournaliere' : ActorMethod<
+    [string, VenteJournaliereInput],
+    boolean
+  >,
+}
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];
 export declare const idlFactory: IDL.InterfaceFactory;

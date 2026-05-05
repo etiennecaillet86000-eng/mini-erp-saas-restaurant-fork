@@ -8,10 +8,638 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
-export const idlService = IDL.Service({});
+export const AssocieInput = IDL.Record({
+  'nom' : IDL.Text,
+  'montantRembourse' : IDL.Float64,
+  'apportInitial' : IDL.Float64,
+  'remunerationMensuelle' : IDL.Float64,
+});
+export const CategorieCarteInput = IDL.Record({
+  'nom' : IDL.Text,
+  'ticketMoyen' : IDL.Float64,
+  'foodCostCible' : IDL.Float64,
+  'mixCiblePct' : IDL.Float64,
+});
+export const EmpruntInput = IDL.Record({
+  'nom' : IDL.Text,
+  'capitalInitial' : IDL.Float64,
+  'tauxAnnuel' : IDL.Float64,
+  'dateDebut' : IDL.Text,
+  'dureeMois' : IDL.Int,
+});
+export const FraisFixeInput = IDL.Record({
+  'categorie' : IDL.Text,
+  'libelle' : IDL.Text,
+  'montant' : IDL.Float64,
+  'frequence' : IDL.Text,
+});
+export const CloturVente = IDL.Record({
+  'recetteId' : IDL.Text,
+  'quantite' : IDL.Float64,
+});
+export const HistoriqueClotureInput = IDL.Record({
+  'chargesVariables' : IDL.Float64,
+  'date' : IDL.Text,
+  'valide' : IDL.Bool,
+  'caTotal' : IDL.Float64,
+  'ventes' : IDL.Vec(CloturVente),
+});
+export const ImmobilisationInput = IDL.Record({
+  'nom' : IDL.Text,
+  'type' : IDL.Text,
+  'valeurAchatHT' : IDL.Float64,
+  'dureeAmortissementAns' : IDL.Int,
+  'dateAchat' : IDL.Text,
+});
+export const IngredientInput = IDL.Record({
+  'nom' : IDL.Text,
+  'seuilSecurite' : IDL.Float64,
+  'famille' : IDL.Text,
+  'prixAchatHT' : IDL.Float64,
+  'unite' : IDL.Text,
+  'perteMatierePct' : IDL.Float64,
+});
+export const MouvementStockInput = IDL.Record({
+  'motif' : IDL.Text,
+  'date' : IDL.Text,
+  'type' : IDL.Text,
+  'quantite' : IDL.Float64,
+  'ingredientId' : IDL.Text,
+});
+export const RecetteIngredient = IDL.Record({
+  'quantiteNette' : IDL.Float64,
+  'ingredientId' : IDL.Text,
+});
+export const RecetteInput = IDL.Record({
+  'nom' : IDL.Text,
+  'tva' : IDL.Float64,
+  'categorie' : IDL.Text,
+  'prixVenteHT' : IDL.Float64,
+  'volumeHebdo' : IDL.Float64,
+  'categorieId' : IDL.Text,
+  'ingredients' : IDL.Vec(RecetteIngredient),
+});
+export const SalaireInput = IDL.Record({
+  'nom' : IDL.Text,
+  'chargesPatronales' : IDL.Float64,
+  'typeContrat' : IDL.Text,
+  'salaireNet' : IDL.Float64,
+  'coutTotalEmployeur' : IDL.Float64,
+  'heuresHebdo' : IDL.Float64,
+  'prenom' : IDL.Text,
+  'poste' : IDL.Text,
+});
+export const VenteJournaliereInput = IDL.Record({
+  'date' : IDL.Text,
+  'montant' : IDL.Float64,
+});
+export const Associe = IDL.Record({
+  'id' : IDL.Text,
+  'nom' : IDL.Text,
+  'montantRembourse' : IDL.Float64,
+  'apportInitial' : IDL.Float64,
+  'remunerationMensuelle' : IDL.Float64,
+});
+export const CategorieCarte = IDL.Record({
+  'id' : IDL.Text,
+  'nom' : IDL.Text,
+  'ticketMoyen' : IDL.Float64,
+  'foodCostCible' : IDL.Float64,
+  'mixCiblePct' : IDL.Float64,
+});
+export const Emprunt = IDL.Record({
+  'id' : IDL.Text,
+  'nom' : IDL.Text,
+  'capitalInitial' : IDL.Float64,
+  'tauxAnnuel' : IDL.Float64,
+  'dateDebut' : IDL.Text,
+  'dureeMois' : IDL.Int,
+});
+export const FraisFixe = IDL.Record({
+  'id' : IDL.Text,
+  'categorie' : IDL.Text,
+  'libelle' : IDL.Text,
+  'montant' : IDL.Float64,
+  'frequence' : IDL.Text,
+});
+export const HistoriqueCloture = IDL.Record({
+  'id' : IDL.Text,
+  'chargesVariables' : IDL.Float64,
+  'date' : IDL.Text,
+  'valide' : IDL.Bool,
+  'caTotal' : IDL.Float64,
+  'ventes' : IDL.Vec(CloturVente),
+});
+export const HypothesesBP = IDL.Record({
+  'croissanceCA_Reel' : IDL.Float64,
+  'joursOuvertureParSemaine' : IDL.Float64,
+  'inflationCharges_Reel' : IDL.Float64,
+  'inflationCharges_BP' : IDL.Float64,
+  'objectifCAannuel' : IDL.Float64,
+  'pacteSocialActif' : IDL.Bool,
+  'semainesOuverture' : IDL.Float64,
+  'tauxIS_haut' : IDL.Float64,
+  'croissanceCA_BP' : IDL.Float64,
+  'margeCibleGlobale' : IDL.Float64,
+  'remunerationAssociesAnnuelle' : IDL.Float64,
+  'couvertsParJour' : IDL.Float64,
+  'tauxCroissanceCA' : IDL.Float64,
+  'joursOuvertureAn' : IDL.Float64,
+  'tauxCroissanceAnnuel' : IDL.Float64,
+  'seuilIS' : IDL.Float64,
+  'ticketMoyenCible' : IDL.Float64,
+  'tauxInflationCharges' : IDL.Float64,
+  'statutJuridique' : IDL.Text,
+  'tauxChargesPatronales' : IDL.Float64,
+  'tauxInflationAnnuel' : IDL.Float64,
+  'tauxChargesSalariales' : IDL.Float64,
+  'tauxIS_bas' : IDL.Float64,
+});
+export const Immobilisation = IDL.Record({
+  'id' : IDL.Text,
+  'nom' : IDL.Text,
+  'type' : IDL.Text,
+  'valeurAchatHT' : IDL.Float64,
+  'dureeAmortissementAns' : IDL.Int,
+  'dateAchat' : IDL.Text,
+});
+export const Ingredient = IDL.Record({
+  'id' : IDL.Text,
+  'nom' : IDL.Text,
+  'seuilSecurite' : IDL.Float64,
+  'famille' : IDL.Text,
+  'prixAchatHT' : IDL.Float64,
+  'unite' : IDL.Text,
+  'perteMatierePct' : IDL.Float64,
+});
+export const MouvementStock = IDL.Record({
+  'id' : IDL.Text,
+  'motif' : IDL.Text,
+  'date' : IDL.Text,
+  'type' : IDL.Text,
+  'quantite' : IDL.Float64,
+  'ingredientId' : IDL.Text,
+});
+export const Recette = IDL.Record({
+  'id' : IDL.Text,
+  'nom' : IDL.Text,
+  'tva' : IDL.Float64,
+  'categorie' : IDL.Text,
+  'prixVenteHT' : IDL.Float64,
+  'volumeHebdo' : IDL.Float64,
+  'categorieId' : IDL.Text,
+  'ingredients' : IDL.Vec(RecetteIngredient),
+});
+export const Salaire = IDL.Record({
+  'id' : IDL.Text,
+  'nom' : IDL.Text,
+  'chargesPatronales' : IDL.Float64,
+  'typeContrat' : IDL.Text,
+  'salaireNet' : IDL.Float64,
+  'coutTotalEmployeur' : IDL.Float64,
+  'heuresHebdo' : IDL.Float64,
+  'prenom' : IDL.Text,
+  'poste' : IDL.Text,
+});
+export const VenteJournaliere = IDL.Record({
+  'id' : IDL.Text,
+  'date' : IDL.Text,
+  'montant' : IDL.Float64,
+});
+
+export const idlService = IDL.Service({
+  'createAssocie' : IDL.Func([AssocieInput], [IDL.Text], []),
+  'createCategorieCarte' : IDL.Func([CategorieCarteInput], [IDL.Text], []),
+  'createEmprunt' : IDL.Func([EmpruntInput], [IDL.Text], []),
+  'createFraisFixe' : IDL.Func([FraisFixeInput], [IDL.Text], []),
+  'createHistoriqueClotureEntry' : IDL.Func(
+      [HistoriqueClotureInput],
+      [IDL.Text],
+      [],
+    ),
+  'createImmobilisation' : IDL.Func([ImmobilisationInput], [IDL.Text], []),
+  'createIngredient' : IDL.Func([IngredientInput], [IDL.Text], []),
+  'createMouvementStock' : IDL.Func([MouvementStockInput], [IDL.Text], []),
+  'createRecette' : IDL.Func([RecetteInput], [IDL.Text], []),
+  'createSalaire' : IDL.Func([SalaireInput], [IDL.Text], []),
+  'createVenteJournaliere' : IDL.Func([VenteJournaliereInput], [IDL.Text], []),
+  'deleteAssocie' : IDL.Func([IDL.Text], [IDL.Bool], []),
+  'deleteCategorieCarte' : IDL.Func([IDL.Text], [IDL.Bool], []),
+  'deleteEmprunt' : IDL.Func([IDL.Text], [IDL.Bool], []),
+  'deleteFraisFixe' : IDL.Func([IDL.Text], [IDL.Bool], []),
+  'deleteHistoriqueClotureEntry' : IDL.Func([IDL.Text], [IDL.Bool], []),
+  'deleteImmobilisation' : IDL.Func([IDL.Text], [IDL.Bool], []),
+  'deleteIngredient' : IDL.Func([IDL.Text], [IDL.Bool], []),
+  'deleteMouvementStock' : IDL.Func([IDL.Text], [IDL.Bool], []),
+  'deleteRecette' : IDL.Func([IDL.Text], [IDL.Bool], []),
+  'deleteSalaire' : IDL.Func([IDL.Text], [IDL.Bool], []),
+  'deleteVenteJournaliere' : IDL.Func([IDL.Text], [IDL.Bool], []),
+  'getAssocieById' : IDL.Func([IDL.Text], [IDL.Opt(Associe)], ['query']),
+  'getCategorieCarteById' : IDL.Func(
+      [IDL.Text],
+      [IDL.Opt(CategorieCarte)],
+      ['query'],
+    ),
+  'getEmpruntById' : IDL.Func([IDL.Text], [IDL.Opt(Emprunt)], ['query']),
+  'getFraisFixeById' : IDL.Func([IDL.Text], [IDL.Opt(FraisFixe)], ['query']),
+  'getHistoriqueClotureById' : IDL.Func(
+      [IDL.Text],
+      [IDL.Opt(HistoriqueCloture)],
+      ['query'],
+    ),
+  'getHypothesesBP' : IDL.Func([], [IDL.Opt(HypothesesBP)], ['query']),
+  'getImmobilisationById' : IDL.Func(
+      [IDL.Text],
+      [IDL.Opt(Immobilisation)],
+      ['query'],
+    ),
+  'getIngredientById' : IDL.Func([IDL.Text], [IDL.Opt(Ingredient)], ['query']),
+  'getMouvementStockById' : IDL.Func(
+      [IDL.Text],
+      [IDL.Opt(MouvementStock)],
+      ['query'],
+    ),
+  'getRecetteById' : IDL.Func([IDL.Text], [IDL.Opt(Recette)], ['query']),
+  'getSalaireById' : IDL.Func([IDL.Text], [IDL.Opt(Salaire)], ['query']),
+  'getVenteJournaliereById' : IDL.Func(
+      [IDL.Text],
+      [IDL.Opt(VenteJournaliere)],
+      ['query'],
+    ),
+  'listAssocies' : IDL.Func([], [IDL.Vec(Associe)], ['query']),
+  'listCategoriesCarte' : IDL.Func([], [IDL.Vec(CategorieCarte)], ['query']),
+  'listEmprunts' : IDL.Func([], [IDL.Vec(Emprunt)], ['query']),
+  'listFraisFixes' : IDL.Func([], [IDL.Vec(FraisFixe)], ['query']),
+  'listHistoriqueClotures' : IDL.Func(
+      [],
+      [IDL.Vec(HistoriqueCloture)],
+      ['query'],
+    ),
+  'listImmobilisations' : IDL.Func([], [IDL.Vec(Immobilisation)], ['query']),
+  'listIngredients' : IDL.Func([], [IDL.Vec(Ingredient)], ['query']),
+  'listMouvementsStock' : IDL.Func([], [IDL.Vec(MouvementStock)], ['query']),
+  'listRecettes' : IDL.Func([], [IDL.Vec(Recette)], ['query']),
+  'listSalaires' : IDL.Func([], [IDL.Vec(Salaire)], ['query']),
+  'listVentesJournalieres' : IDL.Func(
+      [],
+      [IDL.Vec(VenteJournaliere)],
+      ['query'],
+    ),
+  'saveHypothesesBP' : IDL.Func([HypothesesBP], [IDL.Bool], []),
+  'updateAssocie' : IDL.Func([IDL.Text, AssocieInput], [IDL.Bool], []),
+  'updateCategorieCarte' : IDL.Func(
+      [IDL.Text, CategorieCarteInput],
+      [IDL.Bool],
+      [],
+    ),
+  'updateEmprunt' : IDL.Func([IDL.Text, EmpruntInput], [IDL.Bool], []),
+  'updateFraisFixe' : IDL.Func([IDL.Text, FraisFixeInput], [IDL.Bool], []),
+  'updateHistoriqueClotureEntry' : IDL.Func(
+      [IDL.Text, HistoriqueClotureInput],
+      [IDL.Bool],
+      [],
+    ),
+  'updateImmobilisation' : IDL.Func(
+      [IDL.Text, ImmobilisationInput],
+      [IDL.Bool],
+      [],
+    ),
+  'updateIngredient' : IDL.Func([IDL.Text, IngredientInput], [IDL.Bool], []),
+  'updateMouvementStock' : IDL.Func(
+      [IDL.Text, MouvementStockInput],
+      [IDL.Bool],
+      [],
+    ),
+  'updateRecette' : IDL.Func([IDL.Text, RecetteInput], [IDL.Bool], []),
+  'updateSalaire' : IDL.Func([IDL.Text, SalaireInput], [IDL.Bool], []),
+  'updateVenteJournaliere' : IDL.Func(
+      [IDL.Text, VenteJournaliereInput],
+      [IDL.Bool],
+      [],
+    ),
+});
 
 export const idlInitArgs = [];
 
-export const idlFactory = ({ IDL }) => { return IDL.Service({}); };
+export const idlFactory = ({ IDL }) => {
+  const AssocieInput = IDL.Record({
+    'nom' : IDL.Text,
+    'montantRembourse' : IDL.Float64,
+    'apportInitial' : IDL.Float64,
+    'remunerationMensuelle' : IDL.Float64,
+  });
+  const CategorieCarteInput = IDL.Record({
+    'nom' : IDL.Text,
+    'ticketMoyen' : IDL.Float64,
+    'foodCostCible' : IDL.Float64,
+    'mixCiblePct' : IDL.Float64,
+  });
+  const EmpruntInput = IDL.Record({
+    'nom' : IDL.Text,
+    'capitalInitial' : IDL.Float64,
+    'tauxAnnuel' : IDL.Float64,
+    'dateDebut' : IDL.Text,
+    'dureeMois' : IDL.Int,
+  });
+  const FraisFixeInput = IDL.Record({
+    'categorie' : IDL.Text,
+    'libelle' : IDL.Text,
+    'montant' : IDL.Float64,
+    'frequence' : IDL.Text,
+  });
+  const CloturVente = IDL.Record({
+    'recetteId' : IDL.Text,
+    'quantite' : IDL.Float64,
+  });
+  const HistoriqueClotureInput = IDL.Record({
+    'chargesVariables' : IDL.Float64,
+    'date' : IDL.Text,
+    'valide' : IDL.Bool,
+    'caTotal' : IDL.Float64,
+    'ventes' : IDL.Vec(CloturVente),
+  });
+  const ImmobilisationInput = IDL.Record({
+    'nom' : IDL.Text,
+    'type' : IDL.Text,
+    'valeurAchatHT' : IDL.Float64,
+    'dureeAmortissementAns' : IDL.Int,
+    'dateAchat' : IDL.Text,
+  });
+  const IngredientInput = IDL.Record({
+    'nom' : IDL.Text,
+    'seuilSecurite' : IDL.Float64,
+    'famille' : IDL.Text,
+    'prixAchatHT' : IDL.Float64,
+    'unite' : IDL.Text,
+    'perteMatierePct' : IDL.Float64,
+  });
+  const MouvementStockInput = IDL.Record({
+    'motif' : IDL.Text,
+    'date' : IDL.Text,
+    'type' : IDL.Text,
+    'quantite' : IDL.Float64,
+    'ingredientId' : IDL.Text,
+  });
+  const RecetteIngredient = IDL.Record({
+    'quantiteNette' : IDL.Float64,
+    'ingredientId' : IDL.Text,
+  });
+  const RecetteInput = IDL.Record({
+    'nom' : IDL.Text,
+    'tva' : IDL.Float64,
+    'categorie' : IDL.Text,
+    'prixVenteHT' : IDL.Float64,
+    'volumeHebdo' : IDL.Float64,
+    'categorieId' : IDL.Text,
+    'ingredients' : IDL.Vec(RecetteIngredient),
+  });
+  const SalaireInput = IDL.Record({
+    'nom' : IDL.Text,
+    'chargesPatronales' : IDL.Float64,
+    'typeContrat' : IDL.Text,
+    'salaireNet' : IDL.Float64,
+    'coutTotalEmployeur' : IDL.Float64,
+    'heuresHebdo' : IDL.Float64,
+    'prenom' : IDL.Text,
+    'poste' : IDL.Text,
+  });
+  const VenteJournaliereInput = IDL.Record({
+    'date' : IDL.Text,
+    'montant' : IDL.Float64,
+  });
+  const Associe = IDL.Record({
+    'id' : IDL.Text,
+    'nom' : IDL.Text,
+    'montantRembourse' : IDL.Float64,
+    'apportInitial' : IDL.Float64,
+    'remunerationMensuelle' : IDL.Float64,
+  });
+  const CategorieCarte = IDL.Record({
+    'id' : IDL.Text,
+    'nom' : IDL.Text,
+    'ticketMoyen' : IDL.Float64,
+    'foodCostCible' : IDL.Float64,
+    'mixCiblePct' : IDL.Float64,
+  });
+  const Emprunt = IDL.Record({
+    'id' : IDL.Text,
+    'nom' : IDL.Text,
+    'capitalInitial' : IDL.Float64,
+    'tauxAnnuel' : IDL.Float64,
+    'dateDebut' : IDL.Text,
+    'dureeMois' : IDL.Int,
+  });
+  const FraisFixe = IDL.Record({
+    'id' : IDL.Text,
+    'categorie' : IDL.Text,
+    'libelle' : IDL.Text,
+    'montant' : IDL.Float64,
+    'frequence' : IDL.Text,
+  });
+  const HistoriqueCloture = IDL.Record({
+    'id' : IDL.Text,
+    'chargesVariables' : IDL.Float64,
+    'date' : IDL.Text,
+    'valide' : IDL.Bool,
+    'caTotal' : IDL.Float64,
+    'ventes' : IDL.Vec(CloturVente),
+  });
+  const HypothesesBP = IDL.Record({
+    'croissanceCA_Reel' : IDL.Float64,
+    'joursOuvertureParSemaine' : IDL.Float64,
+    'inflationCharges_Reel' : IDL.Float64,
+    'inflationCharges_BP' : IDL.Float64,
+    'objectifCAannuel' : IDL.Float64,
+    'pacteSocialActif' : IDL.Bool,
+    'semainesOuverture' : IDL.Float64,
+    'tauxIS_haut' : IDL.Float64,
+    'croissanceCA_BP' : IDL.Float64,
+    'margeCibleGlobale' : IDL.Float64,
+    'remunerationAssociesAnnuelle' : IDL.Float64,
+    'couvertsParJour' : IDL.Float64,
+    'tauxCroissanceCA' : IDL.Float64,
+    'joursOuvertureAn' : IDL.Float64,
+    'tauxCroissanceAnnuel' : IDL.Float64,
+    'seuilIS' : IDL.Float64,
+    'ticketMoyenCible' : IDL.Float64,
+    'tauxInflationCharges' : IDL.Float64,
+    'statutJuridique' : IDL.Text,
+    'tauxChargesPatronales' : IDL.Float64,
+    'tauxInflationAnnuel' : IDL.Float64,
+    'tauxChargesSalariales' : IDL.Float64,
+    'tauxIS_bas' : IDL.Float64,
+  });
+  const Immobilisation = IDL.Record({
+    'id' : IDL.Text,
+    'nom' : IDL.Text,
+    'type' : IDL.Text,
+    'valeurAchatHT' : IDL.Float64,
+    'dureeAmortissementAns' : IDL.Int,
+    'dateAchat' : IDL.Text,
+  });
+  const Ingredient = IDL.Record({
+    'id' : IDL.Text,
+    'nom' : IDL.Text,
+    'seuilSecurite' : IDL.Float64,
+    'famille' : IDL.Text,
+    'prixAchatHT' : IDL.Float64,
+    'unite' : IDL.Text,
+    'perteMatierePct' : IDL.Float64,
+  });
+  const MouvementStock = IDL.Record({
+    'id' : IDL.Text,
+    'motif' : IDL.Text,
+    'date' : IDL.Text,
+    'type' : IDL.Text,
+    'quantite' : IDL.Float64,
+    'ingredientId' : IDL.Text,
+  });
+  const Recette = IDL.Record({
+    'id' : IDL.Text,
+    'nom' : IDL.Text,
+    'tva' : IDL.Float64,
+    'categorie' : IDL.Text,
+    'prixVenteHT' : IDL.Float64,
+    'volumeHebdo' : IDL.Float64,
+    'categorieId' : IDL.Text,
+    'ingredients' : IDL.Vec(RecetteIngredient),
+  });
+  const Salaire = IDL.Record({
+    'id' : IDL.Text,
+    'nom' : IDL.Text,
+    'chargesPatronales' : IDL.Float64,
+    'typeContrat' : IDL.Text,
+    'salaireNet' : IDL.Float64,
+    'coutTotalEmployeur' : IDL.Float64,
+    'heuresHebdo' : IDL.Float64,
+    'prenom' : IDL.Text,
+    'poste' : IDL.Text,
+  });
+  const VenteJournaliere = IDL.Record({
+    'id' : IDL.Text,
+    'date' : IDL.Text,
+    'montant' : IDL.Float64,
+  });
+  
+  return IDL.Service({
+    'createAssocie' : IDL.Func([AssocieInput], [IDL.Text], []),
+    'createCategorieCarte' : IDL.Func([CategorieCarteInput], [IDL.Text], []),
+    'createEmprunt' : IDL.Func([EmpruntInput], [IDL.Text], []),
+    'createFraisFixe' : IDL.Func([FraisFixeInput], [IDL.Text], []),
+    'createHistoriqueClotureEntry' : IDL.Func(
+        [HistoriqueClotureInput],
+        [IDL.Text],
+        [],
+      ),
+    'createImmobilisation' : IDL.Func([ImmobilisationInput], [IDL.Text], []),
+    'createIngredient' : IDL.Func([IngredientInput], [IDL.Text], []),
+    'createMouvementStock' : IDL.Func([MouvementStockInput], [IDL.Text], []),
+    'createRecette' : IDL.Func([RecetteInput], [IDL.Text], []),
+    'createSalaire' : IDL.Func([SalaireInput], [IDL.Text], []),
+    'createVenteJournaliere' : IDL.Func(
+        [VenteJournaliereInput],
+        [IDL.Text],
+        [],
+      ),
+    'deleteAssocie' : IDL.Func([IDL.Text], [IDL.Bool], []),
+    'deleteCategorieCarte' : IDL.Func([IDL.Text], [IDL.Bool], []),
+    'deleteEmprunt' : IDL.Func([IDL.Text], [IDL.Bool], []),
+    'deleteFraisFixe' : IDL.Func([IDL.Text], [IDL.Bool], []),
+    'deleteHistoriqueClotureEntry' : IDL.Func([IDL.Text], [IDL.Bool], []),
+    'deleteImmobilisation' : IDL.Func([IDL.Text], [IDL.Bool], []),
+    'deleteIngredient' : IDL.Func([IDL.Text], [IDL.Bool], []),
+    'deleteMouvementStock' : IDL.Func([IDL.Text], [IDL.Bool], []),
+    'deleteRecette' : IDL.Func([IDL.Text], [IDL.Bool], []),
+    'deleteSalaire' : IDL.Func([IDL.Text], [IDL.Bool], []),
+    'deleteVenteJournaliere' : IDL.Func([IDL.Text], [IDL.Bool], []),
+    'getAssocieById' : IDL.Func([IDL.Text], [IDL.Opt(Associe)], ['query']),
+    'getCategorieCarteById' : IDL.Func(
+        [IDL.Text],
+        [IDL.Opt(CategorieCarte)],
+        ['query'],
+      ),
+    'getEmpruntById' : IDL.Func([IDL.Text], [IDL.Opt(Emprunt)], ['query']),
+    'getFraisFixeById' : IDL.Func([IDL.Text], [IDL.Opt(FraisFixe)], ['query']),
+    'getHistoriqueClotureById' : IDL.Func(
+        [IDL.Text],
+        [IDL.Opt(HistoriqueCloture)],
+        ['query'],
+      ),
+    'getHypothesesBP' : IDL.Func([], [IDL.Opt(HypothesesBP)], ['query']),
+    'getImmobilisationById' : IDL.Func(
+        [IDL.Text],
+        [IDL.Opt(Immobilisation)],
+        ['query'],
+      ),
+    'getIngredientById' : IDL.Func(
+        [IDL.Text],
+        [IDL.Opt(Ingredient)],
+        ['query'],
+      ),
+    'getMouvementStockById' : IDL.Func(
+        [IDL.Text],
+        [IDL.Opt(MouvementStock)],
+        ['query'],
+      ),
+    'getRecetteById' : IDL.Func([IDL.Text], [IDL.Opt(Recette)], ['query']),
+    'getSalaireById' : IDL.Func([IDL.Text], [IDL.Opt(Salaire)], ['query']),
+    'getVenteJournaliereById' : IDL.Func(
+        [IDL.Text],
+        [IDL.Opt(VenteJournaliere)],
+        ['query'],
+      ),
+    'listAssocies' : IDL.Func([], [IDL.Vec(Associe)], ['query']),
+    'listCategoriesCarte' : IDL.Func([], [IDL.Vec(CategorieCarte)], ['query']),
+    'listEmprunts' : IDL.Func([], [IDL.Vec(Emprunt)], ['query']),
+    'listFraisFixes' : IDL.Func([], [IDL.Vec(FraisFixe)], ['query']),
+    'listHistoriqueClotures' : IDL.Func(
+        [],
+        [IDL.Vec(HistoriqueCloture)],
+        ['query'],
+      ),
+    'listImmobilisations' : IDL.Func([], [IDL.Vec(Immobilisation)], ['query']),
+    'listIngredients' : IDL.Func([], [IDL.Vec(Ingredient)], ['query']),
+    'listMouvementsStock' : IDL.Func([], [IDL.Vec(MouvementStock)], ['query']),
+    'listRecettes' : IDL.Func([], [IDL.Vec(Recette)], ['query']),
+    'listSalaires' : IDL.Func([], [IDL.Vec(Salaire)], ['query']),
+    'listVentesJournalieres' : IDL.Func(
+        [],
+        [IDL.Vec(VenteJournaliere)],
+        ['query'],
+      ),
+    'saveHypothesesBP' : IDL.Func([HypothesesBP], [IDL.Bool], []),
+    'updateAssocie' : IDL.Func([IDL.Text, AssocieInput], [IDL.Bool], []),
+    'updateCategorieCarte' : IDL.Func(
+        [IDL.Text, CategorieCarteInput],
+        [IDL.Bool],
+        [],
+      ),
+    'updateEmprunt' : IDL.Func([IDL.Text, EmpruntInput], [IDL.Bool], []),
+    'updateFraisFixe' : IDL.Func([IDL.Text, FraisFixeInput], [IDL.Bool], []),
+    'updateHistoriqueClotureEntry' : IDL.Func(
+        [IDL.Text, HistoriqueClotureInput],
+        [IDL.Bool],
+        [],
+      ),
+    'updateImmobilisation' : IDL.Func(
+        [IDL.Text, ImmobilisationInput],
+        [IDL.Bool],
+        [],
+      ),
+    'updateIngredient' : IDL.Func([IDL.Text, IngredientInput], [IDL.Bool], []),
+    'updateMouvementStock' : IDL.Func(
+        [IDL.Text, MouvementStockInput],
+        [IDL.Bool],
+        [],
+      ),
+    'updateRecette' : IDL.Func([IDL.Text, RecetteInput], [IDL.Bool], []),
+    'updateSalaire' : IDL.Func([IDL.Text, SalaireInput], [IDL.Bool], []),
+    'updateVenteJournaliere' : IDL.Func(
+        [IDL.Text, VenteJournaliereInput],
+        [IDL.Bool],
+        [],
+      ),
+  });
+};
 
 export const init = ({ IDL }) => { return []; };
