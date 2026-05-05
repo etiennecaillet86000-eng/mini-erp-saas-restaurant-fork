@@ -797,6 +797,9 @@ video {
 .mb-6 {
   margin-bottom: 1.5rem;
 }
+.mb-8 {
+  margin-bottom: 2rem;
+}
 .ml-1 {
   margin-left: 0.25rem;
 }
@@ -1010,6 +1013,9 @@ video {
 }
 .min-h-4 {
   min-height: 1rem;
+}
+.min-h-screen {
+  min-height: 100vh;
 }
 .min-h-svh {
   min-height: 100svh;

@@ -13,10 +13,18 @@ import OperationsPage from "@/modules/restaurant/pages/OperationsPage";
 import RecettesPage from "@/modules/restaurant/pages/RecettesPage";
 import SimulateurCartePage from "@/modules/restaurant/pages/SimulateurCartePage";
 import StockPage from "@/modules/restaurant/pages/StockPage";
+import LoginPage from "@/pages/LoginPage";
 import Parametres from "@/pages/Parametres";
+import { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  if (!isAuthenticated) {
+    return <LoginPage onLogin={() => setIsAuthenticated(true)} />;
+  }
+
   return (
     <>
       <Toaster richColors position="top-right" />
